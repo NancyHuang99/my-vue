@@ -1,0 +1,124 @@
+<template>
+  <div class="header">
+      <div class="header-container">
+          <div class="container">
+              <div class="logo">
+                  <router-link :to="{name:'Home'}">
+                    <img src="../assets/logo.png" alt="">
+                  </router-link>
+              </div>
+              <ul class="nav">
+                  <li>
+                      <router-link :to="{name:'Home'}">首页</router-link>
+                  </li>
+                   
+                  <li v-if="isLoading">loading...</li>
+                  <li v-for="item in (data||[1,2,3]).slice(0,5)" :key="item.channelId">
+                      <router-link  
+                      :to="{
+                          name:'ChannelNews',
+                          params:{
+                              id:item.channelId,
+                          }
+                          }"
+                          >
+                            {{item.name}}
+                          </router-link>
+                  </li>
+              </ul>
+              <div class="user">
+                  <!-- 正在加载中 -->
+                  <span v-if="isLogining">loading...</span>
+                  <!-- 当前有登录用户 -->
+                  <template v-else-if="loginUser">                      
+                      <a href="">{{ loginUser.nickname }}</a>
+                      <a href="" @click.prevent="handleLoginOut">退出登录</a>
+                  </template>
+                    <!-- 没有登录用户 -->
+                  <template v-else>
+                    <router-link :to="{name:'Login'}">登录 </router-link>
+                    <router-link :to="{name:'Reg'}">注册</router-link>
+                  </template>
+              </div>
+              
+          </div>
+      </div>
+  </div>
+</template>
+
+<script>
+
+import { mapState } from "vuex";
+export default{
+    computed:{
+        ...mapState("channels",["data","isLoading"]),//{data(),isLoading(){}}
+        ...mapState("loginUser",{
+            loginUser:"data",
+            isLogining:"isLoading",
+        }),//{loginUser(){},isLogging(){}}
+    },
+    methods:{
+        handleLoginOut(){
+            this.$store.dispatch("loginUser/");
+            this.$router.push({name:"Login"});
+        }
+
+    }
+}
+
+</script>
+
+<style scoped>
+.header{
+    height: 60px;
+}
+.header-container{
+    height: 60PX;
+    background: #000;
+    color: #fff;
+    line-height: 60px;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+}
+.container{
+    display: flex;
+    width: 980px;
+    margin: 0 auto;
+}
+.logo a{
+    display: block;
+    padding: 0 30px;
+}
+.logo img{
+    width: 42px;
+    height: 42px;
+}
+.nav{
+    display: flex;
+    flex-grow: 1;
+    margin: 0 60px;
+}
+
+.nav li a{
+    display: block;
+    padding: 0 30px;
+}
+.nav .router-link-exact-active{
+    color: #fcb85f;
+}
+.user{
+ 
+    font-size: 14px;
+
+}
+.user * {
+    margin-left: 10px;
+}
+.header a{
+    color: #fff;
+}
+</style>
