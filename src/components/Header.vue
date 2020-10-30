@@ -71,49 +71,53 @@ export default {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header{
     height: 60px;
-}
-.header-container{
-    height: 60PX;
-    background: #000;
-    color: #fff;
-    line-height: 60px;
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    display: flex;
-}
-.container{
-    display: flex;
-    width: 980px;
-    margin: 0 auto;
-    
-}
-.logo a{
-    display: block;
-    padding: 0 30px;
-}
-.logo img{
-    width: 42px;
-    height: 42px;
-}
-.nav{
-    display: flex;
-    flex-grow: 1;
-    margin: 0 60px;
+    .header-container{
+        height: 60PX;
+        background: #000;
+        color: #fff;
+        line-height: 60px;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: flex;
+        .container{
+            display: flex;
+            width: 980px;
+            margin: 0 auto;
+            .logo a{
+                display: block;
+                padding: 0 30px;
+            }
+            .logo img{
+                width: 42px;
+                height: 42px;
+            }
+            .nav{
+                display: flex;
+                flex-grow: 1;
+                margin: 0 60px;
+                li a{
+                    display: block;
+                    padding: 0 30px;
+                }
+                .router-link-exact-active{
+                    color: #fcb85f;
+                }
+            }
+            
+        }
+    }
 }
 
-.nav li a{
-    display: block;
-    padding: 0 30px;
-}
-.nav .router-link-exact-active{
-    color: #fcb85f;
-}
+
+
+
+
 .user{
  
     font-size: 14px;
