@@ -11,9 +11,9 @@
                   <li>
                       <router-link :to="{name:'Home'}">首页</router-link>
                   </li>
-                   
+
                   <li v-if="isLoading">loading...</li>
-                  <li v-for="item in (data||[1,2,3]).slice(0,5)" :key="item.channelId">
+                  <li  v-for="item in data.slice(0,5)" :key="item.channelId">
                       <router-link  
                       :to="{
                           name:'ChannelNews',
@@ -25,21 +25,24 @@
                             {{item.name}}
                           </router-link>
                   </li>
+
+                <div class="user">
+                    <!-- 正在加载中 -->
+                    <span v-if="isLogining">loading...</span>
+                    <!-- 当前有登录用户 -->
+                    <template v-else-if="loginUser">                      
+                        <router-link :to="{name:'Personal'}">{{ loginUser.nickname }} </router-link>
+                        <a href="" @click.prevent="handleLoginOut">退出登录</a>
+                    </template>
+                        <!-- 没有登录用户 -->
+                    <template v-else>
+                        <router-link :to="{name:'Login'}">登录 </router-link>
+                        <router-link :to="{name:'Reg'}">注册</router-link>
+                    </template>
+                </div>
+             
               </ul>
-              <div class="user">
-                  <!-- 正在加载中 -->
-                  <span v-if="isLogining">loading...</span>
-                  <!-- 当前有登录用户 -->
-                  <template v-else-if="loginUser">                      
-                      <a href="">{{ loginUser.nickname }}</a>
-                      <a href="" @click.prevent="handleLoginOut">退出登录</a>
-                  </template>
-                    <!-- 没有登录用户 -->
-                  <template v-else>
-                    <router-link :to="{name:'Login'}">登录 </router-link>
-                    <router-link :to="{name:'Reg'}">注册</router-link>
-                  </template>
-              </div>
+
               
           </div>
       </div>
@@ -47,9 +50,9 @@
 </template>
 
 <script>
-
 import { mapState } from "vuex";
-export default{
+
+export default {
     computed:{
         ...mapState("channels",["data","isLoading"]),//{data(),isLoading(){}}
         ...mapState("loginUser",{
@@ -59,7 +62,7 @@ export default{
     },
     methods:{
         handleLoginOut(){
-            this.$store.dispatch("loginUser/");
+            this.$store.dispatch("loginUser/loginOut");
             this.$router.push({name:"Login"});
         }
 
@@ -88,6 +91,7 @@ export default{
     display: flex;
     width: 980px;
     margin: 0 auto;
+    
 }
 .logo a{
     display: block;

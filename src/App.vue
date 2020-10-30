@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <Header />
-      <div class="container" style="width:790px;margin:0 auto;"> 
+      <div class="container"> 
         <!-- 根据不同的路径渲染不同的组件 -->
          <router-view></router-view>
 
@@ -25,7 +25,7 @@ export default {
 </script>
 <style scoped>
 .container{
-  margin: 30px 0;
+  margin: 30px auto;
 
 }
 </style>

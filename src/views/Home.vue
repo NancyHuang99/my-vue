@@ -1,9 +1,9 @@
 <template>
     <div>
-        <Banner  :banners="banners" :duration="300" />
+        <Banner  :banners="banners" :duration="3000" />
         <Channels @change="handleChange"/>
         <Loading v-show="isLoading" />
-        <NewsList v-show="!isLoading" :news="news" />
+        <!-- <NewsList v-show="!isLoading" :news="news" /> -->
         
     </div>
   
@@ -12,7 +12,7 @@
 <script>
 import Banner from "../components/Banner";
 import Channels from "../components/news/Channels";
-import NewsList from "../components/news/NewsList";
+// import NewsList from "../components/news/NewsList";
 import Loading from "../components/Loading";
 import { getNews } from "../services/newsService";
 
@@ -20,7 +20,7 @@ export default {
     components:{
         Banner,
         Channels,
-        NewsList,
+        // NewsList,
         Loading,
     },
 
@@ -38,23 +38,23 @@ export default {
         
         
     },
-    async created(){
 
-    },
     methods:{
-        async handleChange(channelId){
-         
-            this.Loading=true;
-            var resp= await getNews(channelId,1,10);
-            console.log(resp)
+        async handleChange(channelId){         
+            this.isLoading=true;
+            var resp= await getNews(channelId,1,10);            
             this.news = resp.contentlist;
             this.isLoading=false;
         }
     }
 
 }
-</script>
+</script >
 
-<style>
 
+<style scoped>
+
+.containe{
+    margin: 0 auto;
+}
 </style>

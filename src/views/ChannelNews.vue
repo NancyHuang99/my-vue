@@ -33,11 +33,12 @@ export default {
     },
     data(){
         return{
+            channelName:'',
             limit:15,
             total:0,
             panelNumber:10,
             news:[],
-            Loading:true,
+            isLoading:false,
 
         }
     },
@@ -45,24 +46,24 @@ export default {
         page(){
             return +this.$route.query.page||1;
         },
-        channelName(){
-            console.log('123')
-            var channels = this.$route.state.channels.data;
-            console.log(channels.contentlist);
-            if(channels.length>0){
-               var channel = channels.find((item) => item.channelId === this.$route.params.id);
-               return channel.name;
-            }
-            return "";
-        }
+       
     },
+ 
 
-   
     methods:{
+        //设置频道名称
+        async setChannelName(){
+            var channels = await newsServ.getNewsChannels();
+            var channel = channels.find(
+                (item) => item.channelId === this.$route.params.id
+            );
+   
+            this.channelName = channel.name;
+        },
 
         //设置所有新闻相关数据
         async setDatas(){
-            this.Loading = true;
+            this.isLoading = true;
             var resp = await newsServ.getNews(
                 this.$route.params.id,
                 this.page,
@@ -70,14 +71,18 @@ export default {
 
             )
             this.total = resp.allNum;
-            this.news = resp.contentList;
+            this.news = resp.contentlist;
             this.isLoading = false;
 
 
         },
+
+
         handleChange(newPage){
+            //如何在代码中导航
             //命令式导航
-            this.$route.push({
+            // this.$router.push("?page="+newPage)
+            this.$router.push({
                 name:"ChannelNews",
                 params:{
                     id:this.$route.params.id,
@@ -87,21 +92,24 @@ export default {
                 }
             })
             this.setDatas();
-        }
+        },
+        
     },
-
     watch:{
         "$route.params.id":{
             immediate:true,
             handler(){
                 // this.page = 1;
-                // this.setChannelName();
+                this.setChannelName();
                 this.setDatas();
             }
         }
     }
+ 
 
-    }
+ 
+
+}
 </script>
 
 

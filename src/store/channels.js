@@ -5,10 +5,8 @@ import {getNewsChannels } from "../services/newsService";
 export default {
     namespaced:true,//开启命名空间
     state:{
-        channels:{
-            data:[],
-            isLoading:false,
-        },
+        data:[],
+        isLoading:false,
 
     },
     mutations:{
@@ -23,14 +21,16 @@ export default {
     actions:{
         async fetchDatas(context){
             //
-            context.commit("setIsLoading",true);
+            context.commit("setIsLoading",true);            
             //
-            var channels = await getNewsChannels();
+            var channels = await getNewsChannels();            
+            
             //设置data为channels
-            context.commit("setData",channels);
+            context.commit("setData",channels);        
             //
             context.commit("setIsLoading",false);
-            // console.log(this.state.channels.data.length)
+         
+           
         }
     },
 }

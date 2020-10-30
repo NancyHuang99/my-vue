@@ -16,13 +16,18 @@ export default{
             component:() => import("@/views/Reg"),
         },
         {
+            path:"/auth",
+            name:"Auth",
+            component:() => import("@/views/Auth"),
+        },
+        {
             path:"/channel/:id",
             name:"ChannelNews",
             component:() => import("@/views/ChannelNews"),
         },
         {
             path:"/personal",
-            name:"personal",
+            name:"Personal",
             component:() => import("@/views/Personal.vue"),
             meta:{
                 auth:true,

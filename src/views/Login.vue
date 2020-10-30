@@ -41,7 +41,7 @@
 <script>
 import Center from "../components/Center";
 import FormError from "../components/FormError";
-import {login, reg } from "../services/userService"
+
 export default {
     components:{
         Center,
@@ -84,7 +84,7 @@ export default {
             if(validatad1&&validatad2){
 
                 //提交数据
-                var result = await this.$tsore.dispatch(
+                var result = await this.$store.dispatch(
                     "loginUser/login",
                     this.userInfo
                 );

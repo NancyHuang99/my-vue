@@ -1,1 +1,16 @@
 body{font-size: 12px;}
+a:hover{
+    color: #66b1ff;
+}
+*{
+    box-sizing: border-box;
+}
+.container{
+    width: 800px;
+
+  
+}
+input{
+    background-color: #fff;
+    height: 40px;
+}

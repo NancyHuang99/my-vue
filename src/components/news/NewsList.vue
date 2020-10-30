@@ -44,8 +44,11 @@ export default {
 </script>
 
 <style csoped>
+.news-item-normal{
+    border-bottom: 1px solid #ccc;
+}
 .iamges img{
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     }
 </style>

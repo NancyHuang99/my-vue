@@ -1,8 +1,8 @@
-import Vue from 'vue';
+
 import vuex from "vuex";
+import Vue from 'vue';
 import channels from "./channels";
 import loginUser from "./loginUser";
-// console.log(channels)
 Vue.use(vuex);
 var store=new vuex.Store({
   //配置
@@ -11,5 +11,6 @@ var store=new vuex.Store({
       loginUser,
   }
 });
-// console.log(store)
+ 
+
 export default store;
